@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../Documents/book-ui"
+		},
+		{
+			"path": "../../../chatbot"
+		}
+	],
+	"settings": {}
+}
