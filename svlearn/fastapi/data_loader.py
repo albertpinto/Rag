@@ -54,7 +54,7 @@ class DocumentReader:
             index.storage_context.persist(persist_dir=self.storage_directory)
 
         else:
-            # load the existing index
+            #load the existing index
             self.storage_context = StorageContext.from_defaults(
                 persist_dir=self.storage_directory
             )
