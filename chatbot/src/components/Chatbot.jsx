@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [serverUrl, setServerUrl] = useState("http://localhost:9002");
+  const [serverUrl, setServerUrl] = useState("http://localhost:8003");
+  const [botResponse, setBotResponse] = useState("");
+
 
   const handleSend = async () => {
     if (inputValue.trim() !== '') {
@@ -19,10 +21,14 @@ const Chatbot = () => {
           throw new Error(`Error: ${botResponseJson.error}`);
         }
         console.log("The bot response:", botResponseJson);
-        const botResponseText = botResponseJson.response; // Accessing the 'response' field from the JSON
+
+        const botResponseText = botResponseJson // Accessing the 'response' field from the JSON
+        const delimiter = "Critique of agent's response:";
+        const [agentsResponse, critique] = botResponseText.split(delimiter).map(part => part.trim());
         setMessages([...messages,
           { text: inputValue, type: 'user' },
-          { text: botResponseText, type: 'bot' } // Using the extracted 'response' value
+          { text: "Agent's reponse:" + agentsResponse, type: 'bot' }, // Using the extracted 'response' value
+          { text: "Critic Agent's Reponse:"+ critique, type: 'bot' } 
         ]);
       } catch (error) {
         console.error("Fetching error:", error);
@@ -46,6 +52,8 @@ const Chatbot = () => {
       handleSend();
     }
   }
+
+
 
   return (
     <div className="w-auto h-auto border border-gray-600 flex flex-col justify-between">

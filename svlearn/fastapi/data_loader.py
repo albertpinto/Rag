@@ -24,11 +24,12 @@ app.add_middleware(
 class DocumentReader:
     def __init__(self):
         self.directory = (
-            "/Users/albertpinto/documents/transcripts"  # Change the directory as needed
+            "/home/apinto/Documents/transcripts-2024/transcripts"  # Change the directory as needed
         )
         self.openapikey = os.environ.get("OPENAI_API_KEY")
+        print(self.openapikey)
         self.storage_directory = (
-            "/Users/albertpinto/documents/storage"  # Change the directory as needed
+            "/home/apinto/Documents/storage"  # Change the directory as needed
         )
         self.index = None
         self.storage_context = None
@@ -95,7 +96,7 @@ async def main(prompt: str = None):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=9002)
+    uvicorn.run(app, host="localhost", port=8002)
 
 
 """ if __name__ == "__main__":
