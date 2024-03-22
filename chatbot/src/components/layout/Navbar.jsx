@@ -65,7 +65,7 @@ function Navbar({ title }) {
 }
 
 Navbar.defaultProps = {
-  title: "AI Assistant powered by LlamaIndex!"
+  title: "AI Assistant powered by LlamaIndex & Ollama!"
 };
 
 Navbar.propTypes = {

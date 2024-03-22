@@ -47,11 +47,19 @@ async def main(prompt: str) -> str:
         primary_agent = Agent(directory, storage_directory, "regular")
         response = primary_agent.query(prompt)
         
+        print(f"Primary agent's response: {response.response}")
+        
+        primary_agent_response = response.response
+        
         # Configure and query the critique agent
         critique_agent = Agent(directory, storage_directory, "critique")
-        critique = critique_agent.query(prompt)
         
-        full_response = f"{response} Critique agent's response: {critique}"
+        # Add the primary agent's response to the critique agent's query to get a critique
+        critique = critique_agent.query(primary_agent_response)
+        
+        critique_response = critique.response
+        
+        full_response = f"{primary_agent_response} Critique agent's response: {critique.response}"
         return full_response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
