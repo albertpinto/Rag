@@ -13,18 +13,18 @@ function App() {
   return (
     <Router>
       <Navbar />
-        <main className="container mx-auto px-3 pb-12">
-          <Routes>
-            <Route path="/" element={<Chatbot />} />
-            <Route path="/speak" element={<ElevenLabsAudioPlayer />} />
-            <Route path="/chat" element={<Chatbot/>} />
-            <Route path="/chatAI" element={<ChatbotAI />} />
-            <Route path="/notfound" element={<NotFound />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
+      <main className="container mx-auto px-3 pb-12">
+        <Routes>
+          <Route path="/" element={<Chatbot />} />
+          <Route path="/speak" element={<ElevenLabsAudioPlayer />} />
+          <Route path="/chat" element={<Chatbot />} />
+          <Route path="/chatAI" element={<ChatbotAI />} />
+          <Route path="/notfound" element={<NotFound />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
     </Router>
   );
 }

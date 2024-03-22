@@ -23,7 +23,7 @@ const Chatbot = () => {
         console.log("The bot response:", botResponseJson);
 
         const botResponseText = botResponseJson // Accessing the 'response' field from the JSON
-        const delimiter = "Critique of agent's response:";
+        const delimiter = "Critique agent's response:";
         const [agentsResponse, critique] = botResponseText.split(delimiter).map(part => part.trim());
         setMessages([...messages,
           { text: inputValue, type: 'user' },
