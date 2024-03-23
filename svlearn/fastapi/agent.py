@@ -3,6 +3,7 @@ import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from llama_index.llms.ollama import Ollama
+from llama_index.core import PromptTemplate
 import index
 
 app = FastAPI()
@@ -24,18 +25,19 @@ class Agent:
         if self.index is None:
             raise ValueError("Failed to load or create the index.")
 
-    def query(self, query: str) -> str:
+    def query(self, query: str) -> str:      
+
         if self.index is None:
             raise HTTPException(status_code=500, detail="Index is not loaded.")
         if self.agent_type == "regular":
-            query_engine = self.index.as_query_engine()
-            #query_engine = self.index.as_query_engine(llm=Ollama(model="llama2", request_timeout=60.0))
+            chat_engine = self.index.as_chat_engine()
         elif self.agent_type == "critique":
             query = "Check if this is correct: " + query
-            query_engine = self.index.as_query_engine(llm=Ollama(model="mistral", request_timeout=60.0))
+            chat_engine = self.index.as_chat_engine(llm=Ollama(model="mistral", request_timeout=60.0))
         else:
             raise ValueError(f"Unknown agent type: {self.agent_type}")
-        return query_engine.query(query)
+        return chat_engine.query(query)
+
 
 @app.get("/prompt/{prompt}")
 async def main(prompt: str) -> str:
@@ -58,6 +60,7 @@ async def main(prompt: str) -> str:
         critique = critique_agent.query(primary_agent_response)
         
         critique_response = critique.response
+        print(f"Critique agent's response: {critique_response}")
         
         full_response = f"{primary_agent_response} Critique agent's response: {critique.response}"
         return full_response

@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [serverUrl, setServerUrl] = useState("http://localhost:8003");
+  const [serverUrl, setServerUrl] = useState(process.env.REACT_APP_ENDPOINT);
   const [botResponse, setBotResponse] = useState("");
 
 
   const handleSend = async () => {
     if (inputValue.trim() !== '') {
       const url = `${serverUrl}/prompt/${inputValue}`;
-      console.log(url);
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -20,7 +19,6 @@ const Chatbot = () => {
         if (botResponseJson.error) {
           throw new Error(`Error: ${botResponseJson.error}`);
         }
-        console.log("The bot response:", botResponseJson);
 
         const botResponseText = botResponseJson // Accessing the 'response' field from the JSON
         const delimiter = "Critique agent's response:";
@@ -32,8 +30,7 @@ const Chatbot = () => {
         ]);
       } catch (error) {
         console.error("Fetching error:", error);
-        // Handle the error state here, e.g., set an error message in your UI
-      }
+  }
     }
     setInputValue('');
   };
