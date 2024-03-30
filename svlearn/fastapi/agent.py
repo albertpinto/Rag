@@ -42,8 +42,8 @@ class Agent:
 @app.get("/prompt/{prompt}")
 async def main(prompt: str) -> str:
     try:
-        directory = os.getenv("DIRECTORY", "/home/apinto/Documents/transcripts-2024/transcripts")
-        storage_directory = os.getenv("STORAGE_DIRECTORY", "/home/apinto/Documents/storage")
+        directory = os.getenv("LECTURE_TRANSCRIPT_DIRECTORY")
+        storage_directory = os.getenv("INDEX_STORAGE_DIRECTORY")
         
         # Configure and query the primary agent
         primary_agent = Agent(directory, storage_directory, "regular")

@@ -5,8 +5,8 @@ from llama_index.core import VectorStoreIndex, StorageContext, load_index_from_s
 import data_loader
 
 class Index:
-    def __init__(self, directory: str = "/home/apinto/Documents/transcripts-2024/transcripts", 
-                 storage_directory: str = "/home/apinto/Documents/storage"):
+    def __init__(self, directory: str = os.getenv("LECTURE_TRANSCRIPT_DIRECTORY")
+                 ,storage_directory: str = os.getenv("INDEX_STORAGE_DIRECTORY")) -> None:
         self.directory = directory
         self.storage_directory = storage_directory
         self.index = None
