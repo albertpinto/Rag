@@ -31,10 +31,12 @@ class Agent:
         if self.index is None:
             raise HTTPException(status_code=500, detail="Index is not loaded.")
         if self.agent_type == "regular":
-            chat_engine = self.index.as_chat_engine()
+            #chat_engine = self.index.as_chat_engine()
+            chat_engine = self.index.as_chat_engine(llm=Ollama(model="llama3", request_timeout=60.0))
         elif self.agent_type == "critique":
             query = "Check if this is correct: " + query
-            chat_engine = self.index.as_chat_engine(llm=Ollama(model="mistral", request_timeout=60.0))
+            chat_engine = self.index.as_chat_engine()
+            #chat_engine = self.index.as_chat_engine(llm=Ollama(model="llama3", request_timeout=60.0))
         else:
             raise ValueError(f"Unknown agent type: {self.agent_type}")
         return chat_engine.query(query)
