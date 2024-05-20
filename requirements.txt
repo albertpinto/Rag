@@ -1,0 +1,5 @@
+fastapi
+llama-index
+ollama
+uvicorn[standard]
+llama_index.llms.ollama

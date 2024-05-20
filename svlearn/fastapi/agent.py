@@ -28,28 +28,6 @@ class Agent:
 
     def query(self, query: str) -> str:
          
-        # PromptTemplate ="""
-        # # CONTEXT #
-        #     You are a chatbot that provides answers only to question{query} from the context of the index.
-        # # END CONTEXT #
-        # # OBJECTIVE #
-        #    You will answer the user's question based on the content of the index.
-        # # END OBJECTIVE #
-        # #STYLE#
-        #     Like a question and answer session.
-        # # END STYLE #
-        # # TONE #
-        #     Formal, Should be strictly based on the content.
-        # # END TONE #
-        # # AUDIENCE #
-        #     The audience is a group of AI enthusiasts.
-        # # END AUDIENCE #
-        # #RESPONSE #
-        #     Return the response to the user's question.
-        #    Answer:
-        # # END RESPONSE #    
-        # """     
-        # print (PromptTemplate)
         if self.index is None:
             raise HTTPException(status_code=500, detail="Index is not loaded.")
         if self.agent_type == "regular":
@@ -57,6 +35,7 @@ class Agent:
             chat_engine = self.index.as_chat_engine(llm=Ollama(model="llama3", request_timeout=60.0))
         elif self.agent_type == "critique":
             query = "Check if this is correct: " + query
+            #This executes openai model.
             chat_engine = self.index.as_chat_engine()
             #chat_engine = self.index.as_chat_engine(llm=Ollama(model="llama3", request_timeout=60.0))
         else:
