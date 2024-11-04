@@ -4,3 +4,4 @@ chatbot/.env
 svlearn/fastapi/__pycache__/index.cpython-311.pyc
 svlearn/fastapi/__pycache__/data_loader.cpython-311.pyc
 svlearn/fastapi/__pycache__/index.cpython-311.pyc
+svlearn/transcripts/
